@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node server/main.js",
     "start:dev": "webpack -w & nodemon server/main.js --ignore public",
-    "test": "jest"
+    "test": "jest",
+    "seed": "node seed.js"
   },
   "author": "",
   "license": "ISC",

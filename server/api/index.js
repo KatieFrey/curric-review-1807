@@ -1,6 +1,14 @@
 const router = require('express').Router()
 
-// api routes go here
+const Coins = require('../db').Coins
+
+router.get('/coins', async (req, res, next) => {
+  try {
+    res.json(await Coins.findAll())
+  } catch (err) {
+    next(err)
+  }
+})
 
 router.use((req, res, next) => {
   const err = new Error('API route not found')
