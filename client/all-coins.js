@@ -1,7 +1,11 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { requestCoins } from './store'
 
 export class AllCoins extends React.Component {
+    componentDidMount() {
+        this.props.getInitialCoins()
+    }
     render() {
         if (this.props.loading) {
             return <p>Loading, please wait…</p>
@@ -33,4 +37,13 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps)(AllCoins)
+const mapDispatchToProps = dispatch => {
+    return {
+        getInitialCoins: () => dispatch(requestCoins()),
+    }
+}
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(AllCoins)

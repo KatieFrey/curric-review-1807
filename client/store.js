@@ -21,6 +21,17 @@ const coinsFailure = (error) => ({
   payload: error
 })
 
+// thunk creators
+export const requestCoins = () => async (dispatch) => {
+  dispatch(coinsRequest())
+  try {
+    const { data: coins } = await axios.get('/api/coins')
+    dispatch(coinsSuccess(coins))
+  } catch (err) {
+    dispatch(coinsFailure(err))
+  }
+}
+
 const initialState = {
   coins: [],
   loading: false,
