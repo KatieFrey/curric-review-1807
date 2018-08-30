@@ -5,25 +5,48 @@ import axios from 'axios'
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 // const COLLECTED_COIN = 'COLLECTED_COIN'
+const COINS_REQUEST = 'COINS_REQUEST'
+const COINS_SUCCESS = 'COINS_SUCCESS'
+const COINS_FAILURE = 'COINS_FAILURE'
+
+const coinsRequest = () => ({
+  type: COINS_REQUEST
+})
+const coinsSuccess = (coins) => ({
+  type: COINS_SUCCESS,
+  payload: coins
+})
+const coinsFailure = (error) => ({
+  type: COINS_FAILURE,
+  payload: error
+})
 
 const initialState = {
-  coins: [{
-    id: 1,
-    name: 'Tuppence',
-    origin: 'England'
-  }, {
-    id: 2,
-    name: "Franc",
-    origin: 'France'
-  }, {
-    id: 3,
-    name: "Gold Sacagawea Dollar",
-    origin: 'USA'
-  }]
+  coins: [],
+  loading: false,
+  error: null
 }
 
 const reducer = (state = initialState, action) => {
-  switch (action.type) {
+  switch (action.type) { // coins: [], loading: Bool, error: null | Error
+    case COINS_REQUEST:
+      return {
+        ...state,
+        loading: true
+      }
+    case COINS_SUCCESS:
+      return {
+        ...state,
+        coins: action.payload,
+        loading: false,
+        error: null
+      }
+    case COINS_FAILURE:
+      return {
+        ...state,
+        error: action.payload,
+        loading: false,
+      }
     default:
       return state
   }
@@ -39,3 +62,12 @@ const store = createStore(
 )
 
 export default store
+
+// setTimeout(() => {
+//   store.dispatch(coinsRequest())
+//   setTimeout(() => {
+//     store.dispatch(coinsSuccess([
+//       {id: 1, name: 'Franc', origin: 'France'}
+//     ]))
+//   }, 3000)
+// }, 3000)
