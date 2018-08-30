@@ -3,13 +3,14 @@ import { connect } from 'react-redux'
 
 export class AllCoins extends React.Component {
     render() {
-        return (
-            <ul>
-                {this.props.coins.map(coin => (
-                    <li key={coin.id}>{coin.name}</li>
-                ))}
-            </ul>
-        )
+        const origin = this.props.match.params.origin
+        const allCoins = this.props.coins
+            .filter(coin => {
+                if (!origin) return true
+                return coin.origin === origin
+            })
+            .map(coin => <li key={coin.id}>{coin.name}</li>)
+        return <ul>{allCoins}</ul>
     }
 }
 

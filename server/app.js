@@ -21,6 +21,7 @@ app.use(express.static(path.join(__dirname, '..', 'public')))
 // For all GET requests that aren't to an API route,
 // we will send the index.html!
 app.get('/*', (req, res, next) => {
+  console.log('FALLBACK ROUTE', req.method, req.url)
   res.sendFile(path.join(__dirname, '..', 'public', 'index.html'))
 })
 

@@ -9,13 +9,16 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 const initialState = {
   coins: [{
     id: 1,
-    name: 'British Tuppence'
+    name: 'Tuppence',
+    origin: 'England'
   }, {
     id: 2,
-    name: "Franc Français"
+    name: "Franc",
+    origin: 'France'
   }, {
     id: 3,
-    name: "Gold Sacajawea Dollar" // ?
+    name: "Gold Sacagawea Dollar",
+    origin: 'USA'
   }]
 }
 
