@@ -69,5 +69,6 @@ export default store
 //     store.dispatch(coinsSuccess([
 //       {id: 1, name: 'Franc', origin: 'France'}
 //     ]))
+//     // store.dispatch(coinsFailure(Error('oh noessss!!!!')))
 //   }, 3000)
 // }, 3000)
