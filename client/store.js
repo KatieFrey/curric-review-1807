@@ -8,9 +8,9 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 const COINS_REQUEST = 'COINS_REQUEST'
 const COINS_SUCCESS = 'COINS_SUCCESS'
 const COINS_FAILURE = 'COINS_FAILURE'
-const COIN_UPDATE = 'COIN_UPDATE'
+const COIN_UPDATE = 'COIN_UPDATE' // not using in my reducer (for sake of demo time)
 const COIN_UPDATED = 'COIN_UPDATED'
-const COIN_UPDATE_FAIL = 'COIN_UPDATE_FAIL'
+const COIN_UPDATE_FAIL = 'COIN_UPDATE_FAIL' // not using in my reducer (for sake of demo time)
 
 const coinsRequest = () => ({
     type: COINS_REQUEST,
@@ -90,6 +90,14 @@ const reducer = (state = initialState, action) => {
                 error: action.payload,
                 loading: false,
             }
+        case COIN_UPDATED:
+            return {
+                ...state,
+                coins: state.coins.map(coin => {
+                    if (coin.id === action.payload.id) return action.payload
+                    return coin
+                }),
+            }
         default:
             return state
     }
@@ -114,4 +122,4 @@ export default store
 //   }, 3000)
 // }, 3000)
 
-// store.dispatch(updateCoin({ id: 2, name: 'Euro' }))
+store.dispatch(updateCoin({ id: 2, name: 'Franc' }))
