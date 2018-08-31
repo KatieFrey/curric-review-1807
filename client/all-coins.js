@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { requestCoins } from './store'
+import { requestCoins, updateCoin } from './store'
 
 export class AllCoins extends React.Component {
     componentDidMount() {
@@ -12,7 +12,8 @@ export class AllCoins extends React.Component {
         return (event) => { // <-- THIS FUNCTION is the `handleSubmit`
             event.preventDefault()
             const newName = event.target.nom.value
-            console.log('Submitted new coin form! id & name:', id, newName)
+            // console.log('Submitted new coin form! id & name:', id, newName)
+            this.props.changeCoinName(id, newName)
         }
     }
 
@@ -60,6 +61,10 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         getInitialCoins: () => dispatch(requestCoins()),
+        changeCoinName: (id, name) => {
+            const coinDiff = { id, name }
+            dispatch(updateCoin(coinDiff))
+        }
     }
 }
 

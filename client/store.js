@@ -122,4 +122,4 @@ export default store
 //   }, 3000)
 // }, 3000)
 
-store.dispatch(updateCoin({ id: 2, name: 'Franc' }))
+// store.dispatch(updateCoin({ id: 2, name: 'Franc' }))
