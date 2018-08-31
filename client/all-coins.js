@@ -22,7 +22,7 @@ export class AllCoins extends React.Component {
         const allCoins = this.props.coins
             .filter(coin => {
                 if (!origin) return true
-                return coin.origin === origin
+                return coin.origin.name === origin // could make this more lenient e.g. with `toLowerCase`
             })
             .map(coin => <li key={coin.id}>{coin.name}</li>)
         return <ul>{allCoins}</ul>

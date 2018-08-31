@@ -1,22 +1,43 @@
-const { db, Coins } = require('./server/db')
+const { db, Coin, Origin } = require('./server/db')
 
 const seed = async () => {
     try {
         await db.sync({ force: true })
-        await Coins.bulkCreate([
+        const [england, france, usa] = await Origin.bulkCreate(
+            [
+                {
+                    name: 'England',
+                },
+                {
+                    name: 'France',
+                },
+                {
+                    name: 'USA',
+                },
+            ],
             {
-                name: 'Tuppence',
-                origin: 'England',
-            },
+                returning: true, // necessary to see the results from PostgreSQL
+            }
+        )
+        await Coin.bulkCreate(
+            [
+                {
+                    name: 'Tuppence',
+                    originId: england.id,
+                },
+                {
+                    name: 'Franc',
+                    originId: france.id,
+                },
+                {
+                    name: 'Gold Sacagawea Dollar',
+                    originId: usa.id,
+                },
+            ],
             {
-                name: 'Franc',
-                origin: 'France',
-            },
-            {
-                name: 'Gold Sacagawea Dollar',
-                origin: 'USA',
-            },
-        ])
+                returning: true,
+            }
+        )
     } catch (err) {
         console.error('oops', err)
     } finally {
