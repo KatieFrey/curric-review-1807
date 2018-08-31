@@ -12,6 +12,18 @@ router.get('/coins', async (req, res, next) => {
   }
 })
 
+router.put('/coins/:id', async (req, res, next) => { // BODY: { name: String }
+  try {
+    const coin = await Coin.findById(req.params.id)
+    const updatedCoin = await coin.update({
+      name: req.body.name
+    })
+    res.json(updatedCoin)
+  } catch (err) {
+    next(err)
+  }
+})
+
 // not necessary for code demo, just giving an example for its own sake
 router.get('/origins', async (req, res, next) => {
   try {
